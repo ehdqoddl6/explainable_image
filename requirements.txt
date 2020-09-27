@@ -1,1 +1,9 @@
 beautifulsoup4==4.6.0
+numpy
+pandas
+matplotlib
+seaborn
+keras
+tensorflow
+sklearn
+opencv-python
