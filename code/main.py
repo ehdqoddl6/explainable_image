@@ -24,7 +24,8 @@ import cv2
 import os
 from keras.preprocessing import image
 
-
+from keras.applications import inception_v3 as inc_net
+inet_model = inc_net.InceptionV3()
 
 labels = ['PNEUMONIA', 'NORMAL']
 img_size = 150
@@ -35,14 +36,24 @@ def get_training_data(data_dir):
         class_num = labels.index(label)
         for img in os.listdir(path):
             try:
-                #img = image.load_img(path+'/'+img, target_size=(150, 150))
-                #img_arr = image.img_to_array(img)
+                img = image.load_img(path+'/'+img, target_size=(150, 150))
+                img_arr = image.img_to_array(img)
+                img_arr = inc_net.preprocess_input(img_arr)
+                print(img_arr.shape)
+                #plt.imshow(img_arr/ 2 + 0.5, cmap='gray')
+                #plt.show()
+
+
                 #print(img_arr.shape)
                 #img_arr = np.expand_dims(img_arr, axis=0)
                 #print(img_arr.shape)
-                img_arr = cv2.imread(os.path.join(path, img), cv2.IMREAD_GRAYSCALE)
-                resized_arr = cv2.resize(img_arr, (img_size, img_size)) # Reshaping images to preferred size
-                print(img_arr.shape)
+                #img_arr = cv2.imread(os.path.join(path, img), cv2.IMREAD_GRAYSCALE)
+                #resized_arr = cv2.resize(img_arr, (img_size, img_size)) # Reshaping images to preferred size
+                #img_arr = image.img_to_array(resized_arr)
+                #print(resized_arr.shape)
+                #img_arr = image.img_to_array(resized_arr)
+                #img_arr = img_arr.reshape(150, 150, 3)
+                #print(img_arr.shape)
                 data.append([img_arr, class_num])
             except Exception as e:
                 print(e)
@@ -64,7 +75,7 @@ for i in train:
 #sns.countplot(l)
 #plt.show()
 
-"""
+print(train[0][0])
 plt.figure(figsize = (5,5))
 plt.imshow(train[0][0], cmap='gray')
 plt.title(labels[train[0][1]])
@@ -73,7 +84,7 @@ plt.figure(figsize = (5,5))
 plt.imshow(train[-1][0], cmap='gray')
 plt.title(labels[train[-1][1]])
 plt.show()
-"""
+
 x_train = []
 y_train = []
 
@@ -169,13 +180,13 @@ model.summary()
 
 
 learning_rate_reduction = ReduceLROnPlateau(monitor='val_accuracy', patience = 2, verbose=1,factor=0.3, min_lr=0.000001)
-history = model.fit(datagen.flow(x_train,y_train, batch_size = 32) ,epochs = 2 , validation_data = datagen.flow(x_val, y_val) ,callbacks = [learning_rate_reduction])
+history = model.fit(datagen.flow(x_train,y_train, batch_size = 32) ,epochs = 1 , validation_data = datagen.flow(x_val, y_val) ,callbacks = [learning_rate_reduction])
 
 model.save("my_model")
 print("Loss of the model is - " , model.evaluate(x_test,y_test)[0])
 print("Accuracy of the model is - " , model.evaluate(x_test,y_test)[1]*100 , "%")
 
-epochs = [i for i in range(2)]
+epochs = [i for i in range(1)]
 fig , ax = plt.subplots(1,2)
 train_acc = history.history['accuracy']
 train_loss = history.history['loss']
