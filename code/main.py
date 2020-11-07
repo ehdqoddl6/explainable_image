@@ -180,13 +180,13 @@ model.summary()
 
 
 learning_rate_reduction = ReduceLROnPlateau(monitor='val_accuracy', patience = 2, verbose=1,factor=0.3, min_lr=0.000001)
-history = model.fit(datagen.flow(x_train,y_train, batch_size = 32) ,epochs = 1 , validation_data = datagen.flow(x_val, y_val) ,callbacks = [learning_rate_reduction])
+history = model.fit(datagen.flow(x_train,y_train, batch_size = 32) ,epochs = 20 , validation_data = datagen.flow(x_val, y_val) ,callbacks = [learning_rate_reduction])
 
 model.save("my_model")
 print("Loss of the model is - " , model.evaluate(x_test,y_test)[0])
 print("Accuracy of the model is - " , model.evaluate(x_test,y_test)[1]*100 , "%")
 
-epochs = [i for i in range(1)]
+epochs = [i for i in range(20)]
 fig , ax = plt.subplots(1,2)
 train_acc = history.history['accuracy']
 train_loss = history.history['loss']
@@ -232,7 +232,7 @@ for c in correct[:6]:
     plt.subplot(3,2,i+1)
     plt.xticks([])
     plt.yticks([])
-    plt.imshow(x_test[c].reshape(150,150), cmap="gray", interpolation='none')
+    plt.imshow(x_test[c].reshape(150,150,3), cmap="gray", interpolation='none')
     plt.title("Predicted Class {},Actual Class {}".format(predictions[c], y_test[c]))
     plt.tight_layout()
     i += 1
@@ -242,7 +242,7 @@ for c in incorrect[:6]:
     plt.subplot(3,2,i+1)
     plt.xticks([])
     plt.yticks([])
-    plt.imshow(x_test[c].reshape(150,150), cmap="gray", interpolation='none')
+    plt.imshow(x_test[c].reshape(150,150,3), cmap="gray", interpolation='none')
     plt.title("Predicted Class {},Actual Class {}".format(predictions[c], y_test[c]))
     plt.tight_layout()
     i += 1

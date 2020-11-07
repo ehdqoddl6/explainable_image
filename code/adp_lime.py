@@ -25,9 +25,8 @@ model.summary()
 labels = ['PNEUMONIA', 'NORMAL']
 
 
-
 #img_arr = cv2.imread(os.path.join('dataSet/chest_xray/test/PNEUMONIA/', 'person1_virus_11.jpeg'), cv2.IMREAD_GRAYSCALE)
-img = image.load_img('dataSet/chest_xray/train/PNEUMONIA/person1_bacteria_1.jpeg', target_size=(150, 150))
+img = image.load_img('dataSet/chest_xray/train/NORMAL/IM-0122-0001.jpeg', target_size=(150, 150))
 x = image.img_to_array(img)
 print(x.shape)
 images = np.expand_dims(x, axis=0)
@@ -63,7 +62,7 @@ import lime
 from lime import lime_image
 
 explainer = lime_image.LimeImageExplainer()
-explanation = explainer.explain_instance(images[0].astype('double'), model.predict_classes, top_labels=5, hide_color=0, num_samples=100)
+explanation = explainer.explain_instance(images[0].astype('double'), model.predict_classes, top_labels=100, hide_color=0, num_samples=5000)
 
 
 
