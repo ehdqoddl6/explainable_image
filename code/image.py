@@ -12,10 +12,7 @@ from skimage.color import gray2rgb
 from tqdm.auto import tqdm
 
 
-import lime_base
-#import skimage.segmentation
-#from skimage.segmentation import SegmentationAlgorithm
-#from skimage.segmentation import felzenszwalb, slic, quickshift
+import base
 from scikit_image import SegmentationAlgorithm
 
 
@@ -127,7 +124,7 @@ class LimeImageExplainer(object):
 
         self.random_state = check_random_state(random_state)
         self.feature_selection = feature_selection
-        self.base = lime_base.LimeBase(kernel_fn, verbose, random_state=self.random_state)
+        self.base = base.LimeBase(kernel_fn, verbose, random_state=self.random_state)
 
     def explain_instance(self, image, classifier_fn, labels=(1,),
                          hide_color=None,
