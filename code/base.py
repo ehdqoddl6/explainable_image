@@ -4,7 +4,7 @@ from sklearn.linear_model import Ridge, lars_path
 from sklearn.utils import check_random_state
 
 
-class LimeBase(object):
+class Base(object):
     
     def __init__(self, kernel_fn, verbose=False, random_state=None):
     

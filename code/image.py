@@ -61,7 +61,7 @@ class ImageExplanation(object):
             return temp, mask
 
 
-class LimeImageExplainer(object):
+class ImageExplainer(object):
 
     def __init__(self, kernel_width=.25, kernel=None, verbose=False, feature_selection='auto', random_state=None):
         
@@ -75,7 +75,7 @@ class LimeImageExplainer(object):
 
         self.random_state = check_random_state(random_state)
         self.feature_selection = feature_selection
-        self.base = base.LimeBase(kernel_fn, verbose, random_state=self.random_state)
+        self.base = base.Base(kernel_fn, verbose, random_state=self.random_state)
 
     def explain_instance(self, image, classifier_fn, labels=(1,),
                          hide_color=None,

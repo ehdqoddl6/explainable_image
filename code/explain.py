@@ -36,7 +36,7 @@ import base
 import image
 
 
-explainer = image.LimeImageExplainer()
+explainer = image.ImageExplainer()
 print(images[0].astype('double').shape)
 explanation = explainer.explain_instance(images[0].astype('double'), inet_model.predict, top_labels=50, hide_color=0, num_samples=100)
 
