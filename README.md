@@ -1,1 +1,1 @@
-# PneumoniaFinder
+# Explainable Image
