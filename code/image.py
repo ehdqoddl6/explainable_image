@@ -1,6 +1,3 @@
-"""
-Functions for explaining classifiers that use Image data.
-"""
 import copy
 from functools import partial
 
