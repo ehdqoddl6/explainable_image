@@ -7,7 +7,7 @@ import sklearn.preprocessing
 from sklearn.utils import check_random_state
 from skimage.color import gray2rgb
 from tqdm.auto import tqdm
-
+from skimage.segmentation import felzenszwalb, slic, quickshift, watershed
 
 import base
 from scikit_image import SegmentationAlgorithm
