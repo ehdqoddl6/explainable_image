@@ -38,7 +38,7 @@ import image
 
 explainer = image.ImageExplainer()
 print(images[0].astype('double').shape)
-explanation = explainer.explain_instance(images[0].astype('double'), inet_model.predict, top_labels=50, hide_color=0, num_samples=100)
+explanation = explainer.explain_instance(images[0].astype('double'), inet_model.predict, top_labels=50, hide_color=0, num_samples=10000)
 
 
 from skimage.segmentation import mark_boundaries
